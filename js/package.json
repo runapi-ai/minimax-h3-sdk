@@ -1,0 +1,63 @@
+{
+  "name": "@runapi.ai/minimax-h3",
+  "version": "0.1.0",
+  "description": "RunAPI MiniMax H3 SDK for text-to-video, reference-media, and image-to-video workflows in JavaScript, Python, Ruby, Go, Java, and PHP",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "skills"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@runapi.ai/core": "^0.3.3"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "runapi",
+    "runapi-ai",
+    "minimax-h3",
+    "api",
+    "sdk",
+    "typescript",
+    "python",
+    "ruby",
+    "golang",
+    "java",
+    "maven",
+    "gradle",
+    "video-generation",
+    "text-to-video",
+    "image-to-video"
+  ],
+  "license": "Apache-2.0",
+  "runapi": {
+    "slug": "minimax-h3"
+  },
+  "author": "RunAPI",
+  "homepage": "https://runapi.ai/models/minimax-h3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runapi-ai/minimax-h3-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/runapi-ai/minimax-h3-sdk/issues"
+  }
+}
