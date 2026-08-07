@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "runapi-minimax-h3"
+version = "0.1.0"
+description = "RunAPI MiniMax H3 SDK for text-to-video, reference-media, and image-to-video workflows in JavaScript, Python, Ruby, Go, Java, and PHP"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Apache-2.0"
+authors = [{ name = "RunAPI", email = "contact@runapi.ai" }]
+keywords = ["runapi", "runapi-ai", "minimax-h3", "api", "sdk", "typescript", "python", "ruby", "golang", "java", "maven", "gradle", "video-generation", "text-to-video", "image-to-video"]
+dependencies = ["runapi-core>=0.4.0"]
+
+[project.urls]
+Homepage = "https://runapi.ai/models/minimax-h3"
+Documentation = "https://runapi.ai/docs/resources/sdks"
+Source = "https://github.com/runapi-ai/minimax-h3-sdk"
+Issues = "https://github.com/runapi-ai/minimax-h3-sdk/issues"
+Changelog = "https://github.com/runapi-ai/minimax-h3-sdk/blob/main/CHANGELOG.md"
+"Release Notes" = "https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/python%2Fv0.1.0"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/runapi"]
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.runapi]
+slug = "minimax-h3"
