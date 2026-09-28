@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import ai.runapi.core.RequestOptions;
-import ai.runapi.core.billing.TaskBillingFacts;
 import ai.runapi.core.errors.ValidationException;
 import ai.runapi.core.http.HttpRequest;
 import ai.runapi.core.http.HttpResponse;
@@ -124,7 +123,7 @@ class MiniMaxH3ClientTest {
 
   @Test
   void getDecodesTaskResponseAndExtraFields() {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_456\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"billing\":{\"reservation\":{\"amount_cents\":12},\"settlement\":{\"charged_amount_cents\":11,\"amount_micro_cents\":1050000},\"refund\":{\"refunded_at\":\"2026-07-23T12:00:00.000000Z\"}},\"custom\":\"kept\"}");
+    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_456\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"custom\":\"kept\",\"usage\":{\"cost\":0.05}}");
     MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(transport).build();
 
     TextToVideoResponse response = client.textToVideo().get("task_456");
@@ -134,19 +133,14 @@ class MiniMaxH3ClientTest {
     assertEquals("completed", response.getStatus().value());
     assertNotNull(response.getVideos());
     assertEquals("kept", response.extraFields().get("custom").asText());
-    TaskBillingFacts billing = response.getBilling();
-    assertNotNull(billing);
-    assertEquals(Long.valueOf(12), billing.getReservation().getAmountCents());
-    assertEquals(Long.valueOf(11), billing.getSettlement().getChargedAmountCents());
-    assertEquals(Long.valueOf(1050000), billing.getSettlement().getAmountMicroCents());
-    assertEquals("2026-07-23T12:00:00.000000Z", billing.getRefund().getRefundedAt());
+    assertEquals(0.05d, response.getUsage().getCost());
   }
 
   @Test
   void runPollsUntilCompletedAndKeepsExtraFields() {
     SequenceTransport transport = new SequenceTransport(
         "{\"id\":\"task_789\",\"status\":\"processing\"}",
-        "{\"id\":\"task_789\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"custom\":\"kept\"}");
+        "{\"id\":\"task_789\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"custom\":\"kept\",\"usage\":{\"cost\":0.05}}");
     MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(transport).build();
 
     CompletedTextToVideoResponse response = client.textToVideo().run(
@@ -167,7 +161,7 @@ class MiniMaxH3ClientTest {
   void runRejectsCompletedResponseMissingResultField() {
     SequenceTransport transport = new SequenceTransport(
         "{\"id\":\"task_missing\",\"status\":\"processing\"}",
-        "{\"id\":\"task_missing\",\"status\":\"completed\"}");
+        "{\"id\":\"task_missing\",\"status\":\"completed\",\"usage\":{\"cost\":0.05}}");
     MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(transport).build();
 
     assertThrows(
@@ -203,17 +197,17 @@ class MiniMaxH3ClientTest {
                   .build(),
           RequestOptions.none()));
 
-      CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_image_to_video\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+      CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_image_to_video\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client getClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(getTransport).build();
       assertNotNull(getClient.imageToVideo().get("task_image_to_video"));
 
-      CapturingTransport getWithOptionsTransport = new CapturingTransport("{\"id\":\"task_image_to_video_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+      CapturingTransport getWithOptionsTransport = new CapturingTransport("{\"id\":\"task_image_to_video_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client getWithOptionsClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(getWithOptionsTransport).build();
       assertNotNull(getWithOptionsClient.imageToVideo().get("task_image_to_video_options", RequestOptions.none()));
 
       SequenceTransport runTransport = new SequenceTransport(
           "{\"id\":\"task_image_to_video_run\",\"status\":\"processing\"}",
-          "{\"id\":\"task_image_to_video_run\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+          "{\"id\":\"task_image_to_video_run\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client runClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(runTransport).build();
       CompletedImageToVideoResponse runResponse = runClient.imageToVideo().run(
               ImageToVideoParams.builder()
@@ -226,7 +220,7 @@ class MiniMaxH3ClientTest {
 
       SequenceTransport runWithOptionsTransport = new SequenceTransport(
           "{\"id\":\"task_image_to_video_run_options\",\"status\":\"processing\"}",
-          "{\"id\":\"task_image_to_video_run_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+          "{\"id\":\"task_image_to_video_run_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client runWithOptionsClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(runWithOptionsTransport).build();
       assertNotNull(runWithOptionsClient.imageToVideo().run(
               ImageToVideoParams.builder()
@@ -259,17 +253,17 @@ class MiniMaxH3ClientTest {
                   .build(),
           RequestOptions.none()));
 
-      CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_text_to_video\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+      CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_text_to_video\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client getClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(getTransport).build();
       assertNotNull(getClient.textToVideo().get("task_text_to_video"));
 
-      CapturingTransport getWithOptionsTransport = new CapturingTransport("{\"id\":\"task_text_to_video_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+      CapturingTransport getWithOptionsTransport = new CapturingTransport("{\"id\":\"task_text_to_video_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client getWithOptionsClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(getWithOptionsTransport).build();
       assertNotNull(getWithOptionsClient.textToVideo().get("task_text_to_video_options", RequestOptions.none()));
 
       SequenceTransport runTransport = new SequenceTransport(
           "{\"id\":\"task_text_to_video_run\",\"status\":\"processing\"}",
-          "{\"id\":\"task_text_to_video_run\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+          "{\"id\":\"task_text_to_video_run\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client runClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(runTransport).build();
       CompletedTextToVideoResponse runResponse = runClient.textToVideo().run(
               TextToVideoParams.builder()
@@ -282,7 +276,7 @@ class MiniMaxH3ClientTest {
 
       SequenceTransport runWithOptionsTransport = new SequenceTransport(
           "{\"id\":\"task_text_to_video_run_options\",\"status\":\"processing\"}",
-          "{\"id\":\"task_text_to_video_run_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
+          "{\"id\":\"task_text_to_video_run_options\",\"status\":\"completed\",\"videos\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"usage\":{\"cost\":0.05}}");
       MiniMaxH3Client runWithOptionsClient = MiniMaxH3Client.builder().apiKey("sk-test").transport(runWithOptionsTransport).build();
       assertNotNull(runWithOptionsClient.textToVideo().run(
               TextToVideoParams.builder()

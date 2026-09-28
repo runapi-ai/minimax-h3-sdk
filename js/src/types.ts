@@ -1,4 +1,4 @@
-import type { AsyncTaskStatus, TaskBillingResponse, TaskResponse } from '@runapi.ai/core';
+import type { AsyncTaskStatus, TaskResponse } from '@runapi.ai/core';
 
 export type MiniMaxH3Model = 'minimax-h3';
 export type MiniMaxH3DurationSeconds = 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
@@ -25,7 +25,7 @@ export interface MiniMaxH3ImageToVideoParams extends TaskCommonParams {
   last_frame_image_url?: string;
 }
 
-export interface TaskCreateResponse extends TaskBillingResponse {
+export interface TaskCreateResponse {
   id: string;
 }
 

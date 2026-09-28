@@ -11,7 +11,7 @@ type Video struct {
 }
 
 type AsyncTaskResponse struct {
-	core.TaskBillingFacts
+	Usage *core.TaskUsage `json:"usage,omitempty"`
 	ID     string `json:"id"`
 	Status string `json:"status"`
 	Error  string `json:"error,omitempty"`
