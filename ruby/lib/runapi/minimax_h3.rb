@@ -2,7 +2,6 @@
 
 require "runapi/core"
 require_relative "minimax_h3/types"
-require_relative "minimax_h3/contract_gen"
 require_relative "minimax_h3/resources/text_to_video"
 require_relative "minimax_h3/resources/image_to_video"
 require_relative "minimax_h3/client"

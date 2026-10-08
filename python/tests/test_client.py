@@ -1,6 +1,3 @@
-import pytest
-
-from runapi.core.errors import ValidationError
 from runapi.minimax_h3 import MiniMaxH3Client
 
 
@@ -40,29 +37,3 @@ def test_posts_last_frame_only_through_image_to_video():
         model="minimax-h3", prompt="Animate", last_frame_image_url="https://cdn.runapi.ai/public/samples/image.jpg"
     )
     assert fake.calls[0][1] == "/api/v1/minimax_h3/image_to_video"
-
-
-def test_rejects_audio_only_references():
-    client = MiniMaxH3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="one of reference_image_urls, reference_video_urls is required"):
-        client.text_to_video.create(
-            model="minimax-h3", prompt="Continue", reference_audio_urls=["https://cdn.runapi.ai/public/samples/voice.mp3"]
-        )
-
-
-def test_requires_aspect_ratio_without_references():
-    client = MiniMaxH3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="aspect_ratio is required when reference_image_urls is absent and reference_video_urls is absent"):
-        client.text_to_video.create(model="minimax-h3", prompt="Continue")
-
-
-def test_rejects_adaptive_aspect_ratio_without_references():
-    client = MiniMaxH3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="aspect_ratio must be one of:"):
-        client.text_to_video.create(model="minimax-h3", prompt="Continue", aspect_ratio="adaptive")
-
-
-def test_requires_first_or_last_frame():
-    client = MiniMaxH3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="one of first_frame_image_url, last_frame_image_url is required"):
-        client.image_to_video.create(model="minimax-h3", prompt="Animate")

@@ -3,7 +3,6 @@ package minimaxh3
 import (
 	"context"
 	"encoding/json"
-	"strings"
 	"testing"
 
 	"github.com/runapi-ai/core-sdk/go/core"
@@ -47,37 +46,5 @@ func TestImageToVideoCreateWithLastFrameOnly(t *testing.T) {
 	}
 	if stub.path != imageToVideoPath {
 		t.Fatalf("unexpected path: %s", stub.path)
-	}
-}
-
-func TestTextToVideoRejectsAudioOnly(t *testing.T) {
-	client := NewClientWithHTTP(&stubHTTPClient{})
-	_, err := client.TextToVideo.Create(context.Background(), TextToVideoParams{Model: ModelMiniMaxH3, Prompt: "Continue", ReferenceAudioURLs: []string{"https://cdn.runapi.ai/public/samples/voice.mp3"}})
-	if err == nil || !strings.Contains(err.Error(), "one of reference_image_urls, reference_video_urls is required") {
-		t.Fatalf("unexpected error: %v", err)
-	}
-}
-
-func TestTextToVideoRequiresAspectRatioWithoutReferences(t *testing.T) {
-	client := NewClientWithHTTP(&stubHTTPClient{})
-	_, err := client.TextToVideo.Create(context.Background(), TextToVideoParams{Model: ModelMiniMaxH3, Prompt: "Continue"})
-	if err == nil || !strings.Contains(err.Error(), "aspect_ratio is required when reference_image_urls is absent and reference_video_urls is absent") {
-		t.Fatalf("unexpected error: %v", err)
-	}
-}
-
-func TestTextToVideoRejectsAdaptiveAspectRatioWithoutReferences(t *testing.T) {
-	client := NewClientWithHTTP(&stubHTTPClient{})
-	_, err := client.TextToVideo.Create(context.Background(), TextToVideoParams{Model: ModelMiniMaxH3, Prompt: "Continue", AspectRatio: "adaptive"})
-	if err == nil || !strings.Contains(err.Error(), "aspect_ratio must be one of:") {
-		t.Fatalf("unexpected error: %v", err)
-	}
-}
-
-func TestImageToVideoRequiresFrame(t *testing.T) {
-	client := NewClientWithHTTP(&stubHTTPClient{})
-	_, err := client.ImageToVideo.Create(context.Background(), ImageToVideoParams{Model: ModelMiniMaxH3, Prompt: "Animate"})
-	if err == nil || !strings.Contains(err.Error(), "one of first_frame_image_url, last_frame_image_url is required") {
-		t.Fatalf("unexpected error: %v", err)
 	}
 }

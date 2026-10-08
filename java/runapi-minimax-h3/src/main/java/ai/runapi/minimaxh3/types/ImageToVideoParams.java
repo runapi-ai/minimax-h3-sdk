@@ -15,8 +15,8 @@ public final class ImageToVideoParams {
   private final String callbackUrl;
 
   private ImageToVideoParams(Builder builder) {
-    this.model = Minimaxh3ParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.prompt = Minimaxh3ParamUtils.requireNonBlank(builder.prompt, "prompt");
+    this.model = builder.model;
+    this.prompt = builder.prompt;
     this.firstFrameImageUrl = builder.firstFrameImageUrl;
     this.lastFrameImageUrl = builder.lastFrameImageUrl;
     this.durationSeconds = builder.durationSeconds;
@@ -69,26 +69,26 @@ public final class ImageToVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = Minimaxh3ParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = Minimaxh3ParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the first frame image URL. */
     public Builder firstFrameImageUrl(String value) {
-      this.firstFrameImageUrl = Minimaxh3ParamUtils.requireNonBlank(value, "firstFrameImageUrl");
+      this.firstFrameImageUrl = value;
       return this;
     }
 
     /** Sets the last frame image URL. */
     public Builder lastFrameImageUrl(String value) {
-      this.lastFrameImageUrl = Minimaxh3ParamUtils.requireNonBlank(value, "lastFrameImageUrl");
+      this.lastFrameImageUrl = value;
       return this;
     }
 
@@ -100,13 +100,13 @@ public final class ImageToVideoParams {
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = Minimaxh3ParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = Minimaxh3ParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 

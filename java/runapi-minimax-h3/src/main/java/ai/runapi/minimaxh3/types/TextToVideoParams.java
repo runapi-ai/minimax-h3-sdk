@@ -17,8 +17,8 @@ public final class TextToVideoParams {
   private final String callbackUrl;
 
   private TextToVideoParams(Builder builder) {
-    this.model = Minimaxh3ParamUtils.requireNonBlankTrim(builder.model, "model");
-    this.prompt = Minimaxh3ParamUtils.requireNonBlank(builder.prompt, "prompt");
+    this.model = builder.model;
+    this.prompt = builder.prompt;
     this.durationSeconds = builder.durationSeconds;
     this.outputResolution = builder.outputResolution;
     this.aspectRatio = builder.aspectRatio;
@@ -77,14 +77,14 @@ public final class TextToVideoParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = Minimaxh3ParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = Minimaxh3ParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
@@ -96,13 +96,13 @@ public final class TextToVideoParams {
 
     /** Sets the output resolution. */
     public Builder outputResolution(String value) {
-      this.outputResolution = Minimaxh3ParamUtils.requireNonBlank(value, "outputResolution");
+      this.outputResolution = value;
       return this;
     }
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = Minimaxh3ParamUtils.requireNonBlank(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
@@ -126,7 +126,7 @@ public final class TextToVideoParams {
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = Minimaxh3ParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 

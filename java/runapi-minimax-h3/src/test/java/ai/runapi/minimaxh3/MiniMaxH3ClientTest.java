@@ -25,64 +25,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
 import java.util.Collections;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class MiniMaxH3ClientTest {
-  @Test
-  void rejectsAudioOnlyReferences() {
-    MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(new CapturingTransport("{}" )).build();
-
-    ValidationException error = assertThrows(ValidationException.class, () -> client.textToVideo().create(
-        TextToVideoParams.builder()
-            .model(TextToVideoModel.MINIMAX_H3)
-            .prompt("Continue the performance")
-            .referenceAudioUrls(Arrays.asList("https://cdn.runapi.ai/public/samples/voice.mp3"))
-            .build()));
-
-    assertEquals("one of reference_image_urls, reference_video_urls is required when reference_audio_urls is present", error.getMessage());
-  }
-
-  @Test
-  void rejectsAdaptiveAspectRatioWithoutReferenceMedia() {
-    MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(new CapturingTransport("{}" )).build();
-
-    ValidationException error = assertThrows(ValidationException.class, () -> client.textToVideo().create(
-        TextToVideoParams.builder()
-            .model(TextToVideoModel.MINIMAX_H3)
-            .prompt("A cinematic landscape")
-            .aspectRatio("adaptive")
-            .build()));
-
-    assertEquals("aspect_ratio must be one of: 21:9, 16:9, 4:3, 1:1, 3:4, 9:16 when reference_image_urls is absent and reference_video_urls is absent", error.getMessage());
-  }
-
-  @Test
-  void requiresAspectRatioWithoutReferenceMedia() {
-    MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(new CapturingTransport("{}" )).build();
-
-    ValidationException error = assertThrows(ValidationException.class, () -> client.textToVideo().create(
-        TextToVideoParams.builder()
-            .model(TextToVideoModel.MINIMAX_H3)
-            .prompt("A cinematic landscape")
-            .build()));
-
-    assertEquals("aspect_ratio is required when reference_image_urls is absent and reference_video_urls is absent", error.getMessage());
-  }
-
-  @Test
-  void requiresFirstOrLastFrame() {
-    MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").transport(new CapturingTransport("{}" )).build();
-
-    ValidationException error = assertThrows(ValidationException.class, () -> client.imageToVideo().create(
-        ImageToVideoParams.builder()
-            .model(ImageToVideoModel.MINIMAX_H3)
-            .prompt("Animate the scene")
-            .build()));
-
-    assertEquals("one of first_frame_image_url, last_frame_image_url is required", error.getMessage());
-  }
-
   @Test
   void builderCreatesClientAndUniversalResources() {
     MiniMaxH3Client client = MiniMaxH3Client.builder().apiKey("sk-test").build();

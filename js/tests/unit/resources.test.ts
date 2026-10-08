@@ -53,34 +53,4 @@ describe('MiniMax H3 resources', () => {
       },
     });
   });
-
-  it('rejects adaptive aspect ratio without reference media', async () => {
-    await expect(new TextToVideo(mockHttp).create({
-      model: 'minimax-h3',
-      prompt: 'A cinematic landscape',
-      aspect_ratio: 'adaptive',
-    })).rejects.toThrow('aspect_ratio must be one of:');
-  });
-
-  it('requires an aspect ratio without reference media', async () => {
-    await expect(new TextToVideo(mockHttp).create({
-      model: 'minimax-h3',
-      prompt: 'A cinematic landscape',
-    })).rejects.toThrow('aspect_ratio is required when reference_image_urls is absent and reference_video_urls is absent');
-  });
-
-  it('rejects audio-only references', async () => {
-    await expect(new TextToVideo(mockHttp).create({
-      model: 'minimax-h3',
-      prompt: 'Continue the performance',
-      reference_audio_urls: ['https://cdn.runapi.ai/public/samples/voice.mp3'],
-    })).rejects.toThrow('one of reference_image_urls, reference_video_urls is required');
-  });
-
-  it('requires a first or last frame for image-to-video', async () => {
-    await expect(new ImageToVideo(mockHttp).create({
-      model: 'minimax-h3',
-      prompt: 'Animate the scene',
-    })).rejects.toThrow('one of first_frame_image_url, last_frame_image_url is required');
-  });
 });

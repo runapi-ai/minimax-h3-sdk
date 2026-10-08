@@ -4,7 +4,7 @@ Use `ai.runapi:runapi-minimax-h3` for typed MiniMax H3 video tasks.
 
 ```kotlin
 dependencies {
-  implementation("ai.runapi:runapi-minimax-h3:0.1.0")
+  implementation("ai.runapi:runapi-minimax-h3:0.2.0")
 }
 ```
 
