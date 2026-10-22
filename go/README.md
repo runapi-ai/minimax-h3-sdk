@@ -24,6 +24,6 @@ Use `TextToVideo` for prompt-only or reference-media generation. Use `ImageToVid
 
 - [Model reference](https://runapi.ai/models/minimax-h3)
 - [API reference](https://runapi.ai/docs/api/minimax-h3/text-to-video)
-- [Pricing and rate limits](https://runapi.ai/models/minimax-h3)
+- [Pricing and rate limits](https://runapi.ai/models/minimax-h3#family-pricing)
 
 Licensed under the Apache License, Version 2.0.

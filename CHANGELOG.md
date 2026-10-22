@@ -1,5 +1,11 @@
 # Changelog
 
+## [js/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/js%2Fv0.2.1), [ruby/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/ruby%2Fv0.2.1), [go/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/go%2Fv0.2.1), [python/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/python%2Fv0.2.1), [java/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/java%2Fv0.2.1) - 2026-10-22
+
+### Changed
+- Link MiniMax H3 pricing directly to the published model price table.
+
+
 ## [js/v0.2.0](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/js%2Fv0.2.0), [ruby/v0.2.0](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/ruby%2Fv0.2.0), [go/v0.2.0](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/go%2Fv0.2.0), [python/v0.2.0](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/python%2Fv0.2.0), [java/v0.2.0](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/java%2Fv0.2.0) - 2026-10-08
 
 ### Changed

@@ -78,7 +78,7 @@ Returned file URLs are temporary. Download generated files into durable storage 
 - [Model reference](https://runapi.ai/models/minimax-h3)
 - [API reference](https://runapi.ai/docs/api/minimax-h3/text-to-video)
 - [SDK documentation](https://runapi.ai/docs/resources/sdks)
-- [Pricing and rate limits](https://runapi.ai/models/minimax-h3)
+- [Pricing and rate limits](https://runapi.ai/models/minimax-h3#family-pricing)
 - [Model catalog](https://runapi.ai/models)
 
 ## License

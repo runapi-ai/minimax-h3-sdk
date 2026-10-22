@@ -4,7 +4,7 @@ Use `ai.runapi:runapi-minimax-h3` for typed MiniMax H3 video tasks.
 
 ```kotlin
 dependencies {
-  implementation("ai.runapi:runapi-minimax-h3:0.2.0")
+  implementation("ai.runapi:runapi-minimax-h3:0.2.1")
 }
 ```
 
@@ -26,6 +26,6 @@ Use `textToVideo()` for prompt-only or reference-media generation. Use `imageToV
 
 - [Model reference](https://runapi.ai/models/minimax-h3)
 - [API reference](https://runapi.ai/docs/api/minimax-h3/text-to-video)
-- [Pricing and rate limits](https://runapi.ai/models/minimax-h3)
+- [Pricing and rate limits](https://runapi.ai/models/minimax-h3#family-pricing)
 
 Licensed under the Apache License, Version 2.0.
