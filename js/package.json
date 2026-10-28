@@ -1,6 +1,6 @@
 {
   "name": "@runapi.ai/minimax-h3",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "RunAPI MiniMax H3 SDK for text-to-video, reference-media, and image-to-video workflows in JavaScript, Python, Ruby, Go, Java, and PHP",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,12 +23,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@runapi.ai/core": "^0.5.1"
+    "@runapi.ai/core": "^0.5.2"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.11"
   },
   "keywords": [
     "runapi",

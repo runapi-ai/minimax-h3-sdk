@@ -1,5 +1,12 @@
 # Changelog
 
+## [js/v0.2.2](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/js%2Fv0.2.2) - 2026-10-28
+
+### Changed
+- Update development test tooling to Vitest 3 with Vite 6.
+- Update development test tooling to Vitest 4.1.11 with Vite 6.4.4.
+
+
 ## [js/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/js%2Fv0.2.1), [ruby/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/ruby%2Fv0.2.1), [go/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/go%2Fv0.2.1), [python/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/python%2Fv0.2.1), [java/v0.2.1](https://github.com/runapi-ai/minimax-h3-sdk/releases/tag/java%2Fv0.2.1) - 2026-10-22
 
 ### Changed
